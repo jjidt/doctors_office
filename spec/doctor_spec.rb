@@ -21,6 +21,14 @@ describe 'Doctor' do
     expect(Doctor.all.first.specialty_id).to eq specialty_id
   end
 
+  it 'lets you assign a specific insurance company' do
+    test_insurance = Insurance.new("Shit Farm")
+    insurance_id = test_insurance.save.to_s
+    test_doctor = Doctor.new({"name" => "who", "insurance_id" => insurance_id})
+    test_doctor.save
+    expect(Doctor.all.first.insurance_id).to eq insurance_id
+  end
+
   describe 'save' do
     it 'saves a doctor to the database' do
       test_doctor = Doctor.new({"name" => "who"})
