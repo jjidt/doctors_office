@@ -20,7 +20,7 @@ describe "Patient" do
   end
 
   describe "save" do
-    it "should save a fucking patient to the DB" do
+    it "should save a patient to the DB" do
       sick_dude = Patient.new({"name" => "Yeah", "birthdate" => "1987-04-04", "doctor_id" => '5'})
       expect(sick_dude.save).to be_an_instance_of Fixnum
     end
