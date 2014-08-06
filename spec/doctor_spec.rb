@@ -13,6 +13,14 @@ describe 'Doctor' do
     expect(test_doctor.name).to eq 'who'
   end
 
+  it 'lets you assign a specialty to a doctor' do
+    test_specialty = Specialty.new("ear")
+    specialty_id = test_specialty.save.to_s
+    test_doctor = Doctor.new({"name" => "who", "specialty_id" => specialty_id})
+    test_doctor.save
+    expect(Doctor.all.first.name).to eq "who"
+  end
+
   describe 'save' do
     it 'saves a doctor to the database' do
       test_doctor = Doctor.new({"name" => "who"})
