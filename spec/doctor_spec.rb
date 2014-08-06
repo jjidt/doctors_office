@@ -1,6 +1,7 @@
 require 'rspec'
 require 'doctor'
 require 'spec_helper'
+require 'UD'
 
 describe 'Doctor' do
   it 'creates a new doctor' do
@@ -33,6 +34,17 @@ describe 'Doctor' do
     it 'saves a doctor to the database' do
       test_doctor = Doctor.new({"name" => "who"})
       expect(test_doctor.save).to be_an_instance_of Fixnum
+    end
+  end
+
+  describe '.delete' do
+    it 'deletes a doctor from the database' do
+      test_doctor = Doctor.new({"name" => "who"})
+      test_doctor2 = Doctor.new({"name" => "who"})
+      test_doctor2.save
+      doctor_id = test_doctor.save
+      Doctor.delete({"item_id" => doctor_id})
+      expect(Doctor.all.length).to eq 1
     end
   end
 

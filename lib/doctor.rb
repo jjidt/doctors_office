@@ -1,6 +1,7 @@
 class Doctor
 
   attr_reader :name, :specialty_id, :insurance_id
+  @table = 'doctors'
 
   def initialize(attributes)
     @name = attributes["name"]
@@ -12,6 +13,11 @@ class Doctor
   def save
     results = DB.exec("INSERT INTO doctors (name, specialty_id, insurance_id) VALUES ('#{@name}', '#{@specialty_id}', '#{@insurance_id}') RETURNING id;")
     @id = results.first['id'].to_i
+  end
+
+  def self.delete(attributes)
+    attributes["table"] = @table
+    delete_item(attributes)
   end
 
   def self.all
