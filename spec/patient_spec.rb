@@ -25,4 +25,14 @@ describe "Patient" do
       expect(sick_dude.save).to be_an_instance_of Fixnum
     end
   end
+
+  describe ".all" do
+    it "should return all patients in the database" do
+      sick_dude = Patient.new({"name" => "Yeah", "birthdate" => "1987-04-04", "doctor_id" => '5'})
+      sick_dudette = Patient.new({"name" => "Yeah", "birthdate" => "1987-04-04", "doctor_id" => '5'})
+      sick_dude.save
+      sick_dudette.save
+      expect(Patient.all.length).to eq 2
+    end
+  end
 end

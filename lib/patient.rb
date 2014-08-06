@@ -13,4 +13,13 @@ class Patient
     result.first['id'].to_i
   end
 
+  def self.all
+    patients =[]
+    results = DB.exec("SELECT * FROM patients;")
+    results.each do |result|
+      patients << Patient.new(result)
+    end
+    patients
+  end
+
 end
