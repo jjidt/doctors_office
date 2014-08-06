@@ -18,13 +18,25 @@ describe 'Doctor' do
     specialty_id = test_specialty.save.to_s
     test_doctor = Doctor.new({"name" => "who", "specialty_id" => specialty_id})
     test_doctor.save
-    expect(Doctor.all.first.name).to eq "who"
+    expect(Doctor.all.first.specialty_id).to eq specialty_id
   end
 
   describe 'save' do
     it 'saves a doctor to the database' do
       test_doctor = Doctor.new({"name" => "who"})
       expect(test_doctor.save).to be_an_instance_of Fixnum
+    end
+  end
+
+  describe '.find_by_specialty' do
+    it 'searches for doctors with a particular specialty' do
+      test_specialty = Specialty.new("ear")
+      specialty_id = test_specialty.save.to_s
+      test_doctor = Doctor.new({"name" => "who", "specialty_id" => specialty_id})
+      test_doctor2 = Doctor.new({"name" => "strange", "specialty_id" => specialty_id})
+      test_doctor.save
+      test_doctor2.save
+      expect(Doctor.find(specialty_id).length).to eq 2
     end
   end
 
