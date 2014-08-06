@@ -35,4 +35,14 @@ describe "Patient" do
       expect(Patient.all.length).to eq 2
     end
   end
+
+  describe ".find" do
+    it "should return a patient when passed a name" do
+      sick_dude = Patient.new({"name" => "Yeah", "birthdate" => "1987-04-04", "doctor_id" => '5'})
+      sick_dudette = Patient.new({"name" => "Dudette", "birthdate" => "1987-04-04", "doctor_id" => '5'})
+      sick_dude.save
+      sick_dudette.save
+      expect(Patient.find("Dudette").name).to eq "Dudette"
+    end
+  end
 end

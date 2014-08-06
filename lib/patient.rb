@@ -22,4 +22,9 @@ class Patient
     patients
   end
 
+  def self.find(name)
+    result = DB.exec("SELECT * FROM patients WHERE name = '#{name}'")[0]
+    patient = Patient.new(result)
+  end
+
 end
