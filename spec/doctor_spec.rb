@@ -48,6 +48,17 @@ describe 'Doctor' do
     end
   end
 
+  # describe '.update' do
+  #   it 'updates a doctors info in the database' do
+  #     test_doctor = Doctor.new({"name" => "who"})
+  #     test_doctor2 = Doctor.new({"name" => "who"})
+  #     test_doctor2.save
+  #     doctor_id = test_doctor.save
+  #     Doctor.delete({"item_id" => doctor_id})
+  #     expect(Doctor.all.length).to eq 1
+  #   end
+  # end
+
   describe '.find_by_specialty' do
     it 'searches for doctors with a particular specialty' do
       test_specialty = Specialty.new("ear")

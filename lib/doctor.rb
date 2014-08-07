@@ -20,6 +20,9 @@ class Doctor
     delete_item(attributes)
   end
 
+  def self.update(attributes)
+    attributes[]
+
   def self.all
     doctors = []
     results = DB.exec("SELECT * FROM doctors;")
