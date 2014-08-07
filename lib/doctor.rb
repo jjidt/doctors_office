@@ -26,21 +26,11 @@ class Doctor
   end
 
   def self.all
-    doctors = []
-    results = DB.exec("SELECT * FROM doctors;")
-    results.each do |result|
-      doctors << Doctor.new(result)
-    end
-    doctors
+    read({"table" => @table, "column" => "'*'", "selector" => "'*'"})
   end
 
-  def self.find(specialty_id)
-    special_doctors = []
-    results = DB.exec("Select * FROM doctors WHERE specialty_id = '#{specialty_id}';")
-    results.each do |result|
-      special_doctors << Doctor.new(result)
-    end
-    special_doctors
+  def self.find(column, value)
+    read({"table" => @table, "column" => column, "selector" => value})
   end
 
 end

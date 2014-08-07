@@ -1,6 +1,18 @@
 #update: item id, database table, parameters to update, values for each parameter
 #delete: item id
 
+def read(attributes)
+  items = []
+  table = attributes["table"]
+  column = attributes["column"]
+  selector = attributes["selector"]
+  results = DB.exec("SELECT * FROM #{table} WHERE #{column} = #{selector};")
+  results.each do |result|
+    items << self.new(result)
+  end
+  items
+end
+
 def delete_item(attributes)
   item_id = attributes["item_id"]
   table = attributes["table"]
