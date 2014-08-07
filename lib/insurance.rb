@@ -1,6 +1,7 @@
 class Insurance
 
   attr_reader :name
+  @table = 'insurance_companies'
 
   def initialize(attributes)
     @name = attributes["name"]
@@ -11,4 +12,8 @@ class Insurance
     id = result.first["id"].to_i
   end
 
+  def self.delete(attributes)
+    attributes['table'] = @table
+    delete_item(attributes)
+  end
 end
