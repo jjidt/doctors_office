@@ -1,5 +1,8 @@
 require 'pg'
 require 'pry'
+require 'database'
+require 'UD'
+require 'rspec'
 
 DB = PG.connect({:dbname => 'doctors_office_test'})
 

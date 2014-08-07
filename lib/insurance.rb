@@ -1,4 +1,6 @@
-class Insurance
+require 'database'
+
+class Insurance < Database
 
   attr_reader :name
   @table = 'insurance_companies'
@@ -10,10 +12,5 @@ class Insurance
   def save
     result = DB.exec("INSERT INTO insurance_companies (name) VALUES ('#{@name}') RETURNING id;")
     id = result.first["id"].to_i
-  end
-
-  def self.delete(attributes)
-    attributes['table'] = @table
-    delete_item(attributes)
   end
 end

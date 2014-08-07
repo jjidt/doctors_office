@@ -1,7 +1,5 @@
-require 'rspec'
 require 'doctor'
 require 'spec_helper'
-require 'UD'
 
 describe 'Doctor' do
   it 'creates a new doctor' do
