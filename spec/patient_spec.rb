@@ -45,4 +45,15 @@ describe "Patient" do
       expect(Patient.find("Dudette").name).to eq "Dudette"
     end
   end
+
+  describe '.update' do
+    it 'updates patient information' do
+      patient1 = Patient.new({})
+      patient2 = Patient.new({})
+      patient2.save
+      id_1 = patient1.save
+      Patient.update({"item_id" => id_1, "parameters" => 'name', "values" => 'steve'})
+      expect(Patient.find('steve').name).to eq 'steve'
+    end
+  end
 end

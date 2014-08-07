@@ -48,26 +48,25 @@ describe 'Doctor' do
     end
   end
 
-  # describe '.update' do
-  #   it 'updates a doctors info in the database' do
-  #     test_doctor = Doctor.new({"name" => "who"})
-  #     test_doctor2 = Doctor.new({"name" => "who"})
-  #     test_doctor2.save
-  #     doctor_id = test_doctor.save
-  #     Doctor.delete({"item_id" => doctor_id})
-  #     expect(Doctor.all.length).to eq 1
-  #   end
-  # end
+  describe '.update' do
+    it 'updates a doctors info in the database' do
+      test_doctor = Doctor.new({"name" => "strange", "specialty_id" => 3})
+      test_doctor2 = Doctor.new({"name" => "who"})
+      test_doctor2.save
+      doctor_id = test_doctor.save
+      Doctor.update({"item_id" => doctor_id, "parameters" => 'name', "values" => 'steve'})
+      expect(Doctor.find(3).first.name).to eq 'steve'
+    end
+  end
 
   describe '.find_by_specialty' do
     it 'searches for doctors with a particular specialty' do
       test_specialty = Specialty.new("ear")
-      specialty_id = test_specialty.save.to_s
-      test_doctor = Doctor.new({"name" => "who", "specialty_id" => specialty_id})
-      test_doctor2 = Doctor.new({"name" => "strange", "specialty_id" => specialty_id})
+      test_doctor = Doctor.new({"name" => "who", "specialty_id" => 3})
+      test_doctor2 = Doctor.new({"name" => "strange", "specialty_id" => 3})
       test_doctor.save
       test_doctor2.save
-      expect(Doctor.find(specialty_id).length).to eq 2
+      expect(Doctor.find(3).length).to eq 2
     end
   end
 

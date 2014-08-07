@@ -21,7 +21,9 @@ class Doctor
   end
 
   def self.update(attributes)
-    attributes[]
+    attributes["table"] = @table
+    update_item(attributes)
+  end
 
   def self.all
     doctors = []
@@ -34,12 +36,11 @@ class Doctor
 
   def self.find(specialty_id)
     special_doctors = []
-    results = DB.exec("Select #{specialty_id} FROM doctors;")
+    results = DB.exec("Select * FROM doctors WHERE specialty_id = '#{specialty_id}';")
     results.each do |result|
       special_doctors << Doctor.new(result)
     end
     special_doctors
   end
-
 
 end

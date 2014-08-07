@@ -9,12 +9,13 @@ def delete_item(attributes)
   DB.exec("DELETE FROM #{table} WHERE id = #{item_id};")
 end
 
-def update(attributes)
+def update_item(attributes)
+# {"item_id", "table", "parameters", "values"}
   item_id = attributes["item_id"]
   table = attributes["table"]
   parameters = attributes["parameters"]
   values = attributes["values"]
   DB.exec("UPDATE #{table}
-           SET #{parameters}= #{values}
+           SET (#{parameters}) = ('#{values}')
            WHERE id= #{item_id};")
 end

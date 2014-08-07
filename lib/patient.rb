@@ -2,10 +2,14 @@ class Patient
 
   attr_reader :name, :birthdate, :doctor_id
 
+  @table = 'patients'
+
   def initialize(attributes)
     @name = attributes["name"]
-    @birthdate = attributes["birthdate"]
-    @doctor_id = attributes["doctor_id"]
+    @doctor_id = 0
+    @doctor_id = attributes["doctor_id"] if attributes["doctor_id"]
+    @birthdate = '9999-01-01'
+    @birthdate = attributes["birthdate"] if attributes["birthdate"]
   end
 
   def save
@@ -27,4 +31,8 @@ class Patient
     patient = Patient.new(result)
   end
 
+  def self.update(attributes)
+    attributes['table'] = @table
+    update_item(attributes)
+  end
 end
