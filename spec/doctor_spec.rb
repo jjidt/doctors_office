@@ -53,7 +53,7 @@ describe 'Doctor' do
       test_doctor2.save
       doctor_id = test_doctor.save
       Doctor.update({"item_id" => doctor_id, "parameters" => 'name', "values" => 'steve'})
-      expect(Doctor.find("specialty_id", 3).first.name).to eq 'steve'
+      expect(Doctor.find({"column" => "specialty_id", "selector" => 3}).first.name).to eq 'steve'
     end
   end
 
@@ -64,7 +64,7 @@ describe 'Doctor' do
       test_doctor2 = Doctor.new({"name" => "strange", "specialty_id" => 3})
       test_doctor.save
       test_doctor2.save
-      expect(Doctor.find("specialty_id", 3).length).to eq 2
+      expect(Doctor.find({"column" => "specialty_id", "selector" => 3}).length).to eq 2
     end
   end
 

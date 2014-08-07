@@ -41,7 +41,7 @@ describe "Patient" do
       sick_dudette = Patient.new({"name" => "Dudette", "birthdate" => "1987-04-04", "doctor_id" => '5'})
       sick_dude.save
       sick_dudette.save
-      expect(Patient.find("name", "Dudette").first.name).to eq "Dudette"
+      expect(Patient.find({"column" => "name", "selector" => "'Dudette'"}).first.name).to eq 'Dudette'
     end
   end
 
@@ -52,7 +52,7 @@ describe "Patient" do
       patient2.save
       id_1 = patient1.save
       Patient.update({"item_id" => id_1, "parameters" => 'name', "values" => 'steve'})
-      expect(Patient.find("name", "steve").first.name).to eq 'steve'
+      expect(Patient.find({"column" => "name", "selector" => "'steve'"}).first.name).to eq 'steve'
     end
   end
 

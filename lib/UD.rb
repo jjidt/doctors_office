@@ -1,5 +1,8 @@
-#update: item id, database table, parameters to update, values for each parameter
-#delete: item id
+#Read, update, delete modules for ruby and postgresql
+
+#read: pass in hash with table, column, selector
+#delete_item: pass in hash with table, item_id
+#update_item: pass in hash with table, item_id, parameters, values
 
 def read(attributes)
   items = []
@@ -28,6 +31,6 @@ def update_item(attributes)
   parameters = attributes["parameters"]
   values = attributes["values"]
   DB.exec("UPDATE #{table}
-           SET (#{parameters}) = ('#{values}')
-           WHERE id= #{item_id};")
+          SET (#{parameters}) = ('#{values}')
+          WHERE id= #{item_id};")
 end
