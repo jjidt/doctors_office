@@ -35,4 +35,9 @@ class Patient
     attributes['table'] = @table
     update_item(attributes)
   end
+
+  def self.delete(attributes)
+    attributes["table"] = @table
+    delete_item(attributes)
+  end
 end

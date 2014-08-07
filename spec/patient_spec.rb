@@ -56,4 +56,15 @@ describe "Patient" do
       expect(Patient.find('steve').name).to eq 'steve'
     end
   end
+
+  describe '.delete' do
+    it 'deletes a patient from the database' do
+      sick_dude = Patient.new({"name" => "Yeah", "birthdate" => "1987-04-04", "doctor_id" => '5'})
+      sick_dudette = Patient.new({"name" => "dudette", "birthdate" => "1987-04-04", "doctor_id" => '5'})
+      sick_dude.save
+      id_dudette = sick_dudette.save
+      Patient.delete({"item_id" => id_dudette})
+      expect(Patient.all.first.name).to eq "Yeah"
+    end
+  end
 end
