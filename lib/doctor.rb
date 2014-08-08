@@ -2,11 +2,13 @@ require './lib/database'
 class Doctor < Database
 
   attr_accessor :name, :specialty_id, :insurance_id, :id, :accessors
+  @table = 'doctors'
 
   def initialize(attributes)
     @attributes = attributes
-    @accessors = [:name, :specialty_id, :insurance_id, :id]
-    create(attributes)
+    @name = @specialty_id = @insurance_id = @id = 0
+    accessors = [:@name, :@specialty_id, :@insurance_id, :@id]
+    create(attributes, accessors)
   end
 
   # def save(attributes)

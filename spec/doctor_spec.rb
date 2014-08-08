@@ -4,7 +4,6 @@ require 'spec_helper'
 describe 'Doctor' do
   it 'creates a new doctor' do
     test_doctor = Doctor.new({"name" => "who"})
-    binding.pry
     expect(test_doctor).to be_an_instance_of Doctor
   end
 
@@ -25,6 +24,7 @@ describe 'Doctor' do
     test_insurance = Insurance.new("Shit Farm")
     insurance_id = test_insurance.save.to_s
     test_doctor = Doctor.new({"name" => "who", "insurance_id" => insurance_id})
+    test_doctor.save
     expect(Doctor.all.first.insurance_id).to eq insurance_id
   end
 

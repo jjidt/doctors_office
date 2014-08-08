@@ -3,7 +3,7 @@ class Database
   def save
     keys = @attributes.keys.join(", ")
     values = @attributes.values.map do|value|
-      "'" + value + "'"
+      "'" + value.to_s + "'"
       end
     values = values.join(", ")
     results = DB.exec("INSERT INTO doctors (#{keys}) VALUES (#{values}) RETURNING id;")
@@ -31,9 +31,9 @@ class Database
 
 end
 
-def create(attributes)
-  self.accessors.each do |instance|
-    instance_chop = instance.to_s.gsub(/@/, '')
-    self.send instance, attributes[instance_chop]
-  end
+def create(attributes, accessors)
+    accessors.each do |instance|
+      instance_chop = instance.to_s.gsub(/@/, '')
+      instance_eval("#{instance} = '#{attributes[instance_chop]}'")
+    end
 end
