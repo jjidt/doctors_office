@@ -13,7 +13,7 @@ describe 'Doctor' do
   end
 
   it 'lets you assign a specialty to a doctor' do
-    test_specialty = Specialty.new("ear")
+    test_specialty = Specialty.new({"name" => "ear"})
     specialty_id = test_specialty.save.to_s
     test_doctor = Doctor.new({"name" => "who", "specialty_id" => specialty_id})
     test_doctor.save
@@ -21,7 +21,7 @@ describe 'Doctor' do
   end
 
   it 'lets you assign a specific insurance company' do
-    test_insurance = Insurance.new("Shit Farm")
+    test_insurance = Insurance.new("name" => "Shit Farm")
     insurance_id = test_insurance.save.to_s
     test_doctor = Doctor.new({"name" => "who", "insurance_id" => insurance_id})
     test_doctor.save

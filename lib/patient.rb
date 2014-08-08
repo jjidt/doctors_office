@@ -1,21 +1,16 @@
 
 class Patient < Database
 
-  attr_reader :name, :birthdate, :doctor_id, :id
+  attr_reader :name, :birthdate, :doctor_id, :id, :table
 
   @table = 'patients'
 
   def initialize(attributes)
-    @id = attributes["id"]
-    @name = attributes["name"]
-    @doctor_id = 0
-    @doctor_id = attributes["doctor_id"] if attributes["doctor_id"]
-    @birthdate = '9999-01-01'
-    @birthdate = attributes["birthdate"] if attributes["birthdate"]
-  end
-
-  def save
-    result = DB.exec("INSERT INTO patients (name, birthdate, doctor_id) VALUES ('#{@name}', '#{@birthdate}', '#{@doctor_id}') RETURNING id;")
-    result.first['id'].to_i
+    @table = 'patients'
+    @attributes = attributes
+    @accessors = [:@name, :@birthdate, :@doctor_id, :@id]
+    attributes["doctor_id"] = 0 if !attributes["doctor_id"]
+    attributes["birthdate"] = '9999-01-01' if !attributes["birthdate"]
+    self.create
   end
 end

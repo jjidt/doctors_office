@@ -25,7 +25,6 @@ def delete_item(attributes)
 end
 
 def update_item(attributes)
-# {"item_id", "table", "parameters", "values"}
   item_id = attributes["item_id"]
   table = attributes["table"]
   parameters = attributes["parameters"]

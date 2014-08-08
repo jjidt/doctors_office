@@ -1,12 +1,19 @@
 class Database
+  def create
+      @accessors.each do |instance|
+        instance_chop = instance.to_s.gsub(/@/, '')
+        instance_eval("#{instance} = '#{@attributes[instance_chop]}'")
+      end
+  end
 
   def save
+    table = @table
     keys = @attributes.keys.join(", ")
     values = @attributes.values.map do|value|
       "'" + value.to_s + "'"
       end
     values = values.join(", ")
-    results = DB.exec("INSERT INTO doctors (#{keys}) VALUES (#{values}) RETURNING id;")
+    results = DB.exec("INSERT INTO #{table} (#{keys}) VALUES (#{values}) RETURNING id;")
     @id = results.first['id'].to_i
   end
 
@@ -29,11 +36,4 @@ class Database
     read(attributes)
   end
 
-end
-
-def create(attributes, accessors)
-    accessors.each do |instance|
-      instance_chop = instance.to_s.gsub(/@/, '')
-      instance_eval("#{instance} = '#{attributes[instance_chop]}'")
-    end
 end

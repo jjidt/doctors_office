@@ -16,21 +16,23 @@ def prompt(string)
 end
 
 user_classes = [:Doctor, :Patient, :Specialty, :Insurance]
-crud_options = [:delete, :update, :all, :find]
+crud_options = {"delete" => :delete, "update" => :update, "list all" => :all, "find" => :find}
 crud_parameters = {:delete => ["item_id"], :update => ["item_id", "parameters", "values"], :find => ["column", "selector"]}
 
 
 def access(user_classes, crud_options, crud_parameters)
+  system('clear')
   user_classes.each_with_index do |user_class, index|
     puts "#{index + 1}:  #{user_class.to_s}"
   end
   user_choice = prompt("Enter number of choice to access")
   current_class = user_classes[user_choice.to_i - 1]
-  crud_options.each_with_index do |crud_option, index|
-    puts "#{index + 1}:  #{crud_option.to_s}"
+  crud_keys = crud_options.keys
+  crud_keys.each_with_index do |crud_option, index|
+    puts "#{index + 1}:  #{crud_option}"
   end
   crud_choice = prompt("Enter a number to perform function on #{current_class}")
-  current_crud = crud_options[crud_choice.to_i - 1]
+  current_crud = crud_options[crud_keys[crud_choice.to_i - 1]]
   current_grab = Kernel.const_get(current_class).send(current_crud)
   current_grab.each do |item|
     print "\n"

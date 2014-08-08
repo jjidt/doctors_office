@@ -22,7 +22,7 @@ describe 'Insurance' do
       insurance.save
       another_id = another_insurance.save
       Insurance.delete({"item_id" => another_id})
-      expect(DB.exec("SELECT * FROM insurance_companies").first['name']).to eq 'State Farm'
+      expect(Insurance.all.first.name).to eq 'State Farm'
     end
   end
 end
