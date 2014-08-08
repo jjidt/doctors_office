@@ -7,7 +7,17 @@ require './lib/patient'
 require './lib/specialty'
 require './lib/insurance'
 
+DB = PG.connect({:dbname => 'postgres'})
+Database.new('doctors_office')
 DB = PG.connect({:dbname => 'doctors_office'})
+
+DB.exec("drop schema public cascade; create schema public;")
+
+Doctor.create_table
+Insurance.create_table
+Patient.create_table
+Specialty.create_table
+
 
 def prompt(string)
   puts string
@@ -33,7 +43,7 @@ def access(user_classes, crud_options, crud_parameters)
   end
   crud_choice = prompt("Enter a number to perform function on #{current_class}")
   current_crud = crud_options[crud_keys[crud_choice.to_i - 1]]
-  current_grab = Kernel.const_get(current_class).send(current_crud)
+  current_grab = Kernel.const_get(current_class).send(current_crud)  # Doctor.delete
   current_grab.each do |item|
     print "\n"
     grab_instances = item.instance_variables

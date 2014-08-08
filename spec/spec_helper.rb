@@ -2,9 +2,20 @@ require 'pg'
 require 'pry'
 require 'UD'
 require 'rspec'
-require 'rubocop'
+require './lib/insurance'
+require './lib/patient'
+require './lib/specialty'
 
+DB = PG.connect({:dbname => 'postgres'})
+Database.new('doctors_office')
 DB = PG.connect({:dbname => 'doctors_office_test'})
+
+DB.exec("drop schema public cascade; create schema public;")
+
+Doctor.create_table
+Insurance.create_table
+Patient.create_table
+Specialty.create_table
 
 RSpec.configure do |config|
   config.after(:each) do

@@ -1,4 +1,15 @@
 class Database
+
+  def initialize(db_name)
+    db_check = DB.exec("SELECT datname FROM pg_database WHERE datistemplate = false;")
+    db_results = []
+    db_check.each { |i| db_results << i.values}
+    if !db_results.include?([db_name])
+      DB.exec("CREATE DATABASE #{db_name}")
+      DB.exec("CREATE DATABASE #{db_name}_test")
+    end
+  end
+
   def create
       @accessors.each do |instance|
         instance_chop = instance.to_s.gsub(/@/, '')
