@@ -1,11 +1,12 @@
-require 'database'
 
 class Insurance < Database
 
-  attr_reader :name
+  attr_reader :name, :id
+
   @table = 'insurance_companies'
 
   def initialize(attributes)
+    @id = attributes["id"]
     @name = attributes["name"]
   end
 

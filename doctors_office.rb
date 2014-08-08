@@ -1,6 +1,11 @@
 require 'pg'
 require 'pry'
 require './lib/UD'
+require './lib/database'
+require './lib/doctor'
+require './lib/patient'
+require './lib/specialty'
+require './lib/insurance'
 
 DB = PG.connect({:dbname => 'doctors_office'})
 
@@ -12,27 +17,30 @@ end
 
 user_classes = [:Doctor, :Patient, :Specialty, :Insurance]
 crud_options = [:delete, :update, :all, :find]
+crud_parameters = {:delete => ["item_id"], :update => ["item_id", "parameters", "values"], :find => ["column", "selector"]}
 
-def access(user_classes, crud_options)
+
+def access(user_classes, crud_options, crud_parameters)
   user_classes.each_with_index do |user_class, index|
     puts "#{index + 1}:  #{user_class.to_s}"
   end
   user_choice = prompt("Enter number of choice to access")
   current_class = user_classes[user_choice.to_i - 1]
   crud_options.each_with_index do |crud_option, index|
-      puts "#{index + 1}:  #{crud_option.to_s}"
+    puts "#{index + 1}:  #{crud_option.to_s}"
   end
   crud_choice = prompt("Enter a number to perform function on #{current_class}")
-  current_crud = crud_options[crud_choice.to_i -1]
-  current_class.current_crud("")
+  current_crud = crud_options[crud_choice.to_i - 1]
+  current_grab = Kernel.const_get(current_class).send(current_crud)
+  current_grab.each do |item|
+    print "\n"
+    grab_instances = item.instance_variables
+    grab_instances.each do |instance|
+      instance = instance.to_s.gsub(/@/, '').to_sym
+      print "#{instance}:  #{item.send(instance)}\t"
+    end
+  puts "\n"
+  end
 end
 
-access(user_classes, crud_options)
-
-
-
-
-
-  # @table_list = []
-  # results = DB.exec("SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type = 'BASE TABLE'")
-  # results.each {|result| @table_list << result["table_name"]}
+access(user_classes, crud_options, crud_parameters)

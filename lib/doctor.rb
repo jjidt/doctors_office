@@ -1,19 +1,17 @@
-require 'database'
-
+require './lib/database'
 class Doctor < Database
 
-  attr_reader :name, :specialty_id, :insurance_id
-  @table = 'doctors'
+  attr_accessor :name, :specialty_id, :insurance_id, :id, :accessors
 
   def initialize(attributes)
-    @name = attributes["name"]
-    attributes.default = 0
-    @specialty_id = attributes["specialty_id"]
-    @insurance_id = attributes["insurance_id"]
+    @attributes = attributes
+    @accessors = [:name, :specialty_id, :insurance_id, :id]
+    create(attributes)
   end
 
-  def save
-    results = DB.exec("INSERT INTO doctors (name, specialty_id, insurance_id) VALUES ('#{@name}', '#{@specialty_id}', '#{@insurance_id}') RETURNING id;")
-    @id = results.first['id'].to_i
-  end
+  # def save(attributes)
+  #   keys = attributes.keys.join(", ")
+  #   results = DB.exec("INSERT INTO doctors (#{keys}) VALUES ('#{@name}', '#{@specialty_id}', '#{@insurance_id}') RETURNING id;")
+  #   @id = results.first['id'].to_i
+  # end
 end

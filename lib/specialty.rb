@@ -1,11 +1,11 @@
-require 'database'
 
 class Specialty < Database
 
-  attr_reader :name
+  attr_reader :name, :id
   @table = 'specialties'
 
   def initialize(attributes)
+    @id = attributes["id"]
     @name = attributes["name"]
   end
 

@@ -1,12 +1,12 @@
-require 'database'
 
 class Patient < Database
 
-  attr_reader :name, :birthdate, :doctor_id
+  attr_reader :name, :birthdate, :doctor_id, :id
 
   @table = 'patients'
 
   def initialize(attributes)
+    @id = attributes["id"]
     @name = attributes["name"]
     @doctor_id = 0
     @doctor_id = attributes["doctor_id"] if attributes["doctor_id"]
